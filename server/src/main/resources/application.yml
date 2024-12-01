@@ -1,0 +1,16 @@
+grpc:
+  client:
+    userClient:
+      negotiationType: PLAINTEXT
+      address: static://localhost:10086
+  server:
+    port: 10086
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:monitor.db
+    username: root
+    password: 123456
