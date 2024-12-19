@@ -18,6 +18,6 @@ public class GrpcServer {
                 .build()
                 .start();
         System.out.println("GRPC server started on port: " + server.getPort());
-        server.awaitTermination();
+//        server.awaitTermination();
     }
 }

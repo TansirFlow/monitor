@@ -7,10 +7,12 @@ grpc:
     port: 10086
 server:
   port: 8080
+  servlet:
+    context-path: '/api'
 
 spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:monitor.db
+    url: jdbc:sqlite:monitor.sqlite
     username: root
     password: 123456

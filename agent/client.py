@@ -55,7 +55,7 @@ class Client:
             }
         }
 
-        self.key = "12345"
+        self.key = "1234567890"
         self.threads = []
         self.channel = None
         self.stub = None
@@ -107,7 +107,7 @@ class Client:
 
     def connect_to_server(self):
         print("Connecting to the gRPC server...")
-        self.channel = grpc.insecure_channel('218.93.208.28:11100')
+        self.channel = grpc.insecure_channel('127.0.0.1:10086')
         self.stub = postInfo_pb2_grpc.UpdateServerInfoStub(self.channel)
         print("Connected to the gRPC server.")
 

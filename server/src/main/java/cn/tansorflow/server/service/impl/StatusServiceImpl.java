@@ -27,10 +27,12 @@ public class StatusServiceImpl extends UpdateServerInfoGrpc.UpdateServerInfoImpl
 
     @Override
     public void updateInfo(ClientInfo request, StreamObserver<MyResponse> responseObserver) {
+//        System.out.println(request.getKey());
         String serverInfo = request.getServerInfo();
         Information information = com.alibaba.fastjson.JSON.parseObject(serverInfo, Information.class);
         information.setPostTime(LocalDateTime.now());
-        printSystemInfo(information);
+        ServerServiceImpl.updateInfo(request.getKey(),information);
+//        printSystemInfo(information);
         MyResponse response = MyResponse.newBuilder().setCode(0).setMsg("success").build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
