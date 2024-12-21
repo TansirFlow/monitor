@@ -1,5 +1,7 @@
 import time
 
+import configparser
+
 import util
 import postInfo_pb2
 import postInfo_pb2_grpc
@@ -55,7 +57,7 @@ class Client:
             }
         }
 
-        self.key = "1234567890"
+        self.key = ""
         self.threads = []
         self.channel = None
         self.stub = None
@@ -105,16 +107,24 @@ class Client:
             self.serverInfo['load'] = util.get_load_average()
             time.sleep(1)
 
-    def connect_to_server(self):
+    def connect_to_server(self,host,port):
         print("Connecting to the gRPC server...")
-        self.channel = grpc.insecure_channel('127.0.0.1:10086')
+        self.channel = grpc.insecure_channel(f'{host}:{port}')
         self.stub = postInfo_pb2_grpc.UpdateServerInfoStub(self.channel)
         print("Connected to the gRPC server.")
 
     def send(self):
+        # 创建 ConfigParser 对象
+        config = configparser.ConfigParser()
+        # 读取配置文件
+        config.read('config.ini')
+        host=config['DEFAULT']['host']
+        port=config['DEFAULT']['port']
+        key=config['DEFAULT']['key']
+        self.key=key
         while True:
             if not self.channel or not self.stub:
-                self.connect_to_server()
+                self.connect_to_server(host,port)
 
             try:
                 response = self.stub.updateInfo(
