@@ -1,5 +1,6 @@
 package cn.tansorflow.server.controller;
 
+import cn.tansorflow.server.pojo.common.information.Information;
 import cn.tansorflow.server.pojo.dto.AddServerDTO;
 import cn.tansorflow.server.pojo.common.result.Result;
 import cn.tansorflow.server.pojo.entity.ServerEntity;
@@ -28,6 +29,11 @@ public class ServiceController {
     @GetMapping("/status")
     private Result<List<ServerInfoVO>> infoList(){
         List<ServerInfoVO> list=serverService.infoList();
+        for(ServerInfoVO s:list){
+            if(s.getStatus()==null){
+                s.setStatus(new Information());
+            }
+        }
         return Result.success(list);
     }
 }

@@ -1,15 +1,11 @@
 <script setup>
 import {ref,onMounted} from 'vue'
 import {getServerInfoListServer} from '@/api/server'
-const serverInfoList=ref([])
+const serverInfoList=ref(null)
 const getServerInfo=async()=>{
     let result=await getServerInfoListServer()
     serverInfoList.value=result.data
-    for(let i=0;i<serverInfoList.value.length;++i){
-        if(serverInfoList.value[i].status==null){
-            serverInfoList.value.splice(i,1)
-        }
-    }
+    console.log(serverInfoList.value)
 }
 onMounted(()=>{
     getServerInfo()
